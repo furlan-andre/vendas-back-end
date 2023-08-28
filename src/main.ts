@@ -16,6 +16,7 @@ async function bootstrap() {
   SwaggerModule.setup('swagger', app, document);
 
   app.useGlobalPipes(new ValidationPipe({whitelist:true, forbidNonWhitelisted: true}));
+  app.enableCors();
 
   await app.listen(3001);
 }

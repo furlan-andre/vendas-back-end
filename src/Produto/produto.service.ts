@@ -138,7 +138,7 @@ export class ProdutoService {
             produto.ValorDeVenda = produtoDto.valorDeVenda;
         
         if(produtoDto.tipo)
-            produto.Tipo = produtoDto.tipo;
+        produto.Tipo = produtoDto.tipo;
     
         if(produtoDto.caracteristicas && produtoDto.caracteristicas.length > 0){                
             produto.Caracteristicas = new Array<Caracteristica>();

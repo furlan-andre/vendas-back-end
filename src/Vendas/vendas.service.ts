@@ -23,12 +23,21 @@ export class VendasService {
   
   async cadastrar(createVendaDto: CreateVendaDto, produtoService: ProdutoService) {          
     const vendas = await this.montarVenda(createVendaDto, produtoService);  
-    // const inconsistencia = this.validaInconsistencia(vendas);  
-    
-    // if(inconsistencia)
-    //   throw new BadRequestException('deu ruim na venda parça');
+    this.validaInconsistencia(vendas);  
     
     return this.vendasRepository.save(vendas);
+  }
+
+  private validaInconsistencia(venda: Vendas) {
+    if(!venda.itens || venda.itens.length === 0)
+      throw new BadRequestException('Itens são obrigatórios');
+
+    if(!venda.cliente || venda.cliente?.cpf || venda.cliente?.email || venda.cliente?.nome)
+      throw new BadRequestException(`Os dados do cliente são obrigatórios`);  
+
+    if(venda.cliente.cpf)  
+
+    return false;
   }
 
   async montarVenda(createVendaDto: CreateVendaDto, produtoService: ProdutoService): Promise<Vendas> {
