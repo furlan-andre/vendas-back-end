@@ -5,7 +5,6 @@ import { ValidaInconsistenciaProduto } from 'src/Validators/ValidaInconsistencia
 import { Repository } from 'typeorm';
 import { CriarProdutoDto } from './dto/criar-produtos.dto';
 import { Produto } from './produto.entity';
-import { TipoDeProdutoEnum } from 'src/Enums/tipoDeProdutoEnum';
 
 @Injectable()
 export class ProdutoService {
@@ -138,8 +137,11 @@ export class ProdutoService {
             produto.ValorDeVenda = produtoDto.valorDeVenda;
         
         if(produtoDto.tipo)
-        produto.Tipo = produtoDto.tipo;
+            produto.Tipo = produtoDto.tipo;
     
+        if(produtoDto.linkParaDownload)
+            produto.LinkParaDownload = produtoDto.linkParaDownload;
+
         if(produtoDto.caracteristicas && produtoDto.caracteristicas.length > 0){                
             produto.Caracteristicas = new Array<Caracteristica>();
     
