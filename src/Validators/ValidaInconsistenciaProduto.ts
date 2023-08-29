@@ -17,6 +17,8 @@ export function ValidaInconsistenciaProduto(produto: Produto){
       break;
 
     case 'Agrupado':
+      if(!produto.Agrupamento || produto.Agrupamento.length == 0)
+        return `É obrigatório informar os agrupamentos para produto do tipo: Agrupado`;
       break;
 
     case 'Digital':

@@ -20,7 +20,7 @@ export class Produto {
   @Column({ length:50 })
   Tipo: TipoDeProdutoEnum;
   
-  @IsOptional()
+  @Column({ nullable:true })
   LinkParaDownload?: string;
 
   @OneToMany(() => Caracteristica, (caracteristica) => caracteristica.Produto, {cascade : true})  

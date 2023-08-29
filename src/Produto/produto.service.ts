@@ -15,7 +15,7 @@ export class ProdutoService {
 
     async listar(): Promise<Produto[]> {
         return this.produtoRepositorio.find({
-        relations: { Caracteristicas: true, Agrupamento: true },
+        relations: { Caracteristicas: true, Agrupamento: true, Agrupado: true },
         order: {Id: 'ASC'}
         });
     }
@@ -103,7 +103,7 @@ export class ProdutoService {
             return HttpStatus.OK;
     }
 
-    private async tratarAgrupamento(produto: Produto, produtoDto: CriarProdutoDto): Promise<Produto>{
+    private async tratarAgrupamento(produto: Produto, produtoDto: CriarProdutoDto): Promise<Produto>{        
         if(produtoDto.agrupamento && produtoDto.agrupamento.length > 0){
             produto.Agrupamento = new Array<Produto>();
 
