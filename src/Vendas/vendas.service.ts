@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateVendaDto } from './dto/create-venda.dto';
 import { Vendas } from './entities/venda.entity';
 import { ProdutoService } from 'src/Produto/produto.service';
+import { cpf } from 'cpf-cnpj-validator'; 
 
 @Injectable()
 export class VendasService {  
@@ -37,7 +38,14 @@ export class VendasService {
     if(!venda.cliente || venda.cliente?.cpf || venda.cliente?.email || venda.cliente?.nome)
       throw new BadRequestException(`Os dados do cliente são obrigatórios`);  
 
-    if(venda.cliente.cpf)  
+    if(venda.cliente.cpf) {
+      const valorCpf = venda.cliente.cpf;
+      if(!cpf.isValid(valorCpf))
+        throw new BadRequestException(`O cpf informado é inválido`);  
+    }
+
+    if(!venda.cliente.email.includes('@') && !venda.cliente.email.includes('.'))
+      throw new BadRequestException(`O email informado é inválido`);  
 
     return false;
   }
