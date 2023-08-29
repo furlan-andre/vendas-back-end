@@ -39,6 +39,12 @@ export class ProdutoService {
         if(!produto)
             throw new BadRequestException('Produto não localizado');
 
+        const criarProdutoDto = new CriarProdutoDto();
+        
+        criarProdutoDto.caracteristicas = produtoDto.caracteristicas;
+
+        produto = await this.tratarAgrupamento(produto, criarProdutoDto);
+
         produto = this.atualizarProduto(produto, produtoDto);
         
         await this.valida(produto, this.produtoRepositorio);
@@ -58,6 +64,9 @@ export class ProdutoService {
         
         if (dto.linkParaDownload)
             produto.LinkParaDownload = dto.linkParaDownload;
+        
+        if (dto.valorDeVenda)
+            produto.ValorDeVenda = dto.valorDeVenda;
 
         if (dto.caracteristicas && dto.caracteristicas.length > 0) {            
             produto.Caracteristicas = new Array<Caracteristica>();
