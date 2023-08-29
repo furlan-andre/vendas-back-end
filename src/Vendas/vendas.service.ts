@@ -25,7 +25,7 @@ export class VendasService {
     const vendas = await this.montarVenda(createVendaDto, produtoService);  
     this.validaInconsistencia(vendas);  
     
-    const retorno = this.vendasRepository.save(vendas);
+    const retorno = await this.vendasRepository.save(vendas);
     if(retorno)
       return HttpStatus.OK;
   }

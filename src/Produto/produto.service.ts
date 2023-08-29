@@ -98,7 +98,7 @@ export class ProdutoService {
     }
 
     private async armazena(produto: Produto, repositorio: Repository<Produto>) {                
-        const retorno = repositorio.save(produto);        
+        const retorno = await repositorio.save(produto);        
         if(retorno)
             return HttpStatus.OK;
     }
