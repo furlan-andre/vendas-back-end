@@ -35,7 +35,7 @@ export class VendasService {
     if(!venda.itens || venda.itens.length === 0)
       throw new BadRequestException('Itens são obrigatórios');
 
-    if(!venda.cliente || venda.cliente?.cpf || venda.cliente?.email || venda.cliente?.nome)
+    if(!venda.cliente || !venda.cliente.cpf || !venda.cliente.email || !venda.cliente.nome)
       throw new BadRequestException(`Os dados do cliente são obrigatórios`);  
 
     if(venda.cliente.cpf) {
