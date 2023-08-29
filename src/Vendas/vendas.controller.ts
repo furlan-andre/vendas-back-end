@@ -1,5 +1,5 @@
 import { ProdutoService } from './../Produto/produto.service';
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, ClassSerializerInterceptor, HttpCode } from '@nestjs/common';
 import { VendasService } from './vendas.service';
 import { CreateVendaDto } from './dto/create-venda.dto';
 
@@ -9,6 +9,7 @@ export class VendasController {
               private readonly produtoService: ProdutoService) {}
 
   @Post()
+  @HttpCode(201)
   criar(@Body() createVendaDto: CreateVendaDto) {
     return this.vendasService.cadastrar(createVendaDto, this.produtoService);
   }

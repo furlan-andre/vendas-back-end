@@ -1,5 +1,5 @@
 import { VendaItem } from 'src/VendaItem/entities/venda-item.entity';
-import { Inject, Injectable, BadRequestException } from '@nestjs/common';
+import { Inject, Injectable, BadRequestException, HttpStatus } from '@nestjs/common';
 import { Cliente } from 'src/Cliente/clientes.entity';
 import { Repository } from 'typeorm';
 import { CreateVendaDto } from './dto/create-venda.dto';
@@ -25,7 +25,9 @@ export class VendasService {
     const vendas = await this.montarVenda(createVendaDto, produtoService);  
     this.validaInconsistencia(vendas);  
     
-    return this.vendasRepository.save(vendas);
+    const retorno = this.vendasRepository.save(vendas);
+    if(retorno)
+      return HttpStatus.ACCEPTED;
   }
 
   private validaInconsistencia(venda: Vendas) {
