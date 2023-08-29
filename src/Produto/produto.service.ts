@@ -1,5 +1,5 @@
 import { AtualizarProdutosDto } from './dto/atualizar-produtos.dto';
-import { Injectable, Inject, BadRequestException } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException, HttpCode, HttpStatus } from '@nestjs/common';
 import { Caracteristica } from 'src/Caracteristica/caracteristica.entity';
 import { ValidaInconsistenciaProduto } from 'src/Validators/ValidaInconsistenciaProduto';
 import { Repository } from 'typeorm';
@@ -98,7 +98,9 @@ export class ProdutoService {
     }
 
     private async armazena(produto: Produto, repositorio: Repository<Produto>) {                
-        return repositorio.save(produto);
+        const retorno = repositorio.save(produto);        
+        if(retorno)
+            return HttpStatus.ACCEPTED;
     }
 
     private async tratarAgrupamento(produto: Produto, produtoDto: CriarProdutoDto): Promise<Produto>{

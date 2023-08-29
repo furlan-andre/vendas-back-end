@@ -1,5 +1,5 @@
 import { AtualizarProdutosDto } from './dto/atualizar-produtos.dto';
-import { Body, Controller, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, Param, Patch, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { CriarProdutoDto } from "./dto/criar-produtos.dto";
 import { Produto } from "./produto.entity";
@@ -12,6 +12,7 @@ export class ProdutoController {
   }
 
   @Post()  
+  @HttpCode(201)
   async cadastrar(@Body() produtoDto: CriarProdutoDto){        
       return this.produtoService.cadastrar(produtoDto);
   }
