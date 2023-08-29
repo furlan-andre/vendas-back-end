@@ -27,7 +27,7 @@ export class VendasService {
     
     const retorno = this.vendasRepository.save(vendas);
     if(retorno)
-      return HttpStatus.ACCEPTED;
+      return HttpStatus.OK;
   }
 
   private validaInconsistencia(venda: Vendas) {

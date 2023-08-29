@@ -100,7 +100,7 @@ export class ProdutoService {
     private async armazena(produto: Produto, repositorio: Repository<Produto>) {                
         const retorno = repositorio.save(produto);        
         if(retorno)
-            return HttpStatus.ACCEPTED;
+            return HttpStatus.OK;
     }
 
     private async tratarAgrupamento(produto: Produto, produtoDto: CriarProdutoDto): Promise<Produto>{
